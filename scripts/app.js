@@ -26,13 +26,29 @@ function displayTemperature(response){
     let temperatureElement = document.querySelector("#currentTemp")
     let dateElement = document.querySelector("#date")
     let timeElement = document.querySelector("#time")
+    let icon = document.querySelector("#conditionImg")
     cityElement.innerHTML= response.data.name
     temperatureElement.innerHTML=`${Math.round(response.data.main.temp)}°C`
     dateElement.innerHTML = formatDate(response.data.dt * 1000)
     timeElement.innerHTML = formatTime(response.data.dt * 1000)
-
+    let iconCode =response.data.weather.icon 
+    if (iconCode === "01d" || "01n"){
+    icon.setAttribute("src" ,"./images/01.jpg")
+}else if (iconCode=== "02d" || "02n" ) {
+    icon.setAttribute("src" , "./images/02.jpg")
+}else if (iconCode === "03d" || "03n" ||"04d" ||"04n") {
+    icon.setAttribute("src" , "./images/03.jpg")
+}else if (iconCode === "09d" ||"09n") {
+    icon.setAttribute("src" , "./images/05.jpg")
+}else if (iconCode === "10d" ||"10n") {
+    icon.setAttribute("src" , "./images/05.jpg")
+}else if (iconCode === "11d" ||"11n") {
+    icon.setAttribute("src" , "./images/06.jpg")
+}else if (iconCode === "13d" ||"13n") {
+    icon.setAttribute("src" , "./images/06.jpg")
 }
-
+    
+}
 
 let apiKey = "ff992df60e8c388664e8c387bf3c174c"
 let city = "New York"
