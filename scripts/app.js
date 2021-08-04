@@ -32,46 +32,43 @@ function displayTemperature(response){
     timeElement.innerHTML = formatTime(response.data.dt * 1000)
     let iconCode =response.data.weather[0].icon 
     console.log(response.data.weather[0].icon)
-switch (iconCode) {
-    case "01n" || "01d" :
-        icon.setAttribute("src" , "./images/01.jpg")
-        break;
-    case "02n" || "02d" :
-        icon.setAttribute("src" , "./images/02.jpg")
-        break;
-    case "03n" || "03d" || "04d" || "04n":
-        icon.setAttribute("src" , "./images/03.jpg")
-        break;
-    case "09n" || "09d" :
-        icon.setAttribute("src" , "./images/05.jpg")
-        break;
-    case "10n" || "10d" :
-        icon.setAttribute("src" , "./images/05.jpg")
-        break;
-    case "11n" || "11d" :
-        icon.setAttribute("src" , "./images/06.jpg")
-        break;
-    case "13n" || "13d" :
-        icon.setAttribute("src" , "./images/06.jpg")
-        break;
+
+    switch (iconCode) {
+        case "01d":
+        case "01n":
+        icon.setAttribute("src" ,"./images/01.jpg")
+            break;
+        case "02d":
+        case "02n":
+        icon.setAttribute("src" ,"./images/02.jpg")
+            break;
+        case "03d":
+        case "03n":
+        case "04n":
+        case "04d":
+        icon.setAttribute("src" ,"./images/03.jpg")
+            break;
+        case "09d":
+        case "09n":
+        icon.setAttribute("src" ,"./images/05.jpg")
+            break;
+        case "10d":
+        case "10n":
+        icon.setAttribute("src" ,"./images/05.jpg")
+            break;
+        case "11d":
+        case "11n":
+        icon.setAttribute("src" ,"./images/06.jpg")
+            break;      
+        case "13d":
+        case "13n":
+        icon.setAttribute("src" ,"./images/06.jpg")
+            break;                                 
+        default:
+        icon.setAttribute("src" ,"./images/01.jpg")
+            break;
     }
-
-
-//     if (iconCode === "01d" || "01n"){
-//     icon.setAttribute("src" ,"./images/01.jpg")
-// }else if (iconCode=== "02d" || "02n" ) {
-//     icon.setAttribute("src" , "./images/02.jpg")
-// }else if (iconCode === "03d" || "03n" ||"04d" ||"04n") {
-//     icon.setAttribute("src" , "./images/03.jpg")
-// }else if (iconCode === "09d" ||"09n") {
-//     icon.setAttribute("src" , "./images/05.jpg")
-// }else if (iconCode === "10d" ||"10n") {
-//     icon.setAttribute("src" , "./images/05.jpg")
-// }else if (iconCode === "11d" ||"11n") {
-//     icon.setAttribute("src" , "./images/06.jpg")
-// }else if (iconCode === "13d" ||"13n") {
-//     icon.setAttribute("src" , "./images/06.jpg")
-// }
+    
     
 }
 
