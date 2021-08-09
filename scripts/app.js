@@ -21,19 +21,21 @@ function formatTime(timestamp){
 }
 
 function displayForecast(response) {
-    console.log(response)
+    let forecast = response.data.daily
     let forecastElement = document.querySelector("#forecast")
     let forecastHTML = "" ;
-    let days = ["Sat" , "Sun" , "Mon"]
-    days.forEach(function(day){
+    forecast.forEach(function(forecastDay){
+        console.log(forecastDay.weather[0].icon)
+        let icon = iconSelect(forecastDay.weather[0].icon) 
+console.log(icon)
         forecastHTML = forecastHTML + 
         `
         <div class="col nextFiveDays">
-        <div>${day}</div>
+        <div>${forecastDay.dt}</div>
         <div>
-        <img src="./images/03.jpg" alt="condition" class="nextDaysImg">
+        <img src="" alt="condition" class="nextDaysImg conditionImg">
         </div>
-        <div>17°C</div>
+        <div>${forecastDay.temp.day}°C</div>
       </div>`
       
     })
@@ -42,24 +44,13 @@ function displayForecast(response) {
 }
 
 function getForecast(coordinates) {
-    console.log(coordinates)
     let apiKey = "ff992df60e8c388664e8c387bf3c174c"
     let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`
     axios.get(apiUrl).then(displayForecast)
 }
+function iconSelect(iconCode) {
+    let icon = document.querySelectorAll(".conditionImg")
 
-function displayTemperature(response){
-    let cityElement = document.querySelector("#selectedCity")
-    let temperatureElement = document.querySelector("#currentTemp")
-    let dateElement = document.querySelector("#date")
-    let timeElement = document.querySelector("#time")
-    let icon = document.querySelector("#conditionImg")
-    cityElement.innerHTML= response.data.name
-    temperatureElement.innerHTML=`${Math.round(response.data.main.temp)}°C`
-    dateElement.innerHTML = formatDate(response.data.dt * 1000)
-    timeElement.innerHTML = formatTime(response.data.dt * 1000)
-    let iconCode =response.data.weather[0].icon 
-    
     switch (iconCode) {
         case "01d":
             case "01n":
@@ -95,6 +86,21 @@ function displayTemperature(response){
                         icon.setAttribute("src" ,"./images/01.jpg")
                         break;
                     }
+        
+}
+
+function displayTemperature(response){
+    let cityElement = document.querySelector("#selectedCity")
+    let temperatureElement = document.querySelector("#currentTemp")
+    let dateElement = document.querySelector("#date")
+    let timeElement = document.querySelector("#time")
+    cityElement.innerHTML= response.data.name
+    temperatureElement.innerHTML=`${Math.round(response.data.main.temp)}°C`
+    dateElement.innerHTML = formatDate(response.data.dt * 1000)
+    timeElement.innerHTML = formatTime(response.data.dt * 1000)
+    
+    iconSelect(response.data.weather[0].icon) 
+    
                     
     getForecast(response.data.coord)
                 }
