@@ -20,18 +20,37 @@ function formatTime(timestamp){
     return `${hours} : ${minutes}`
 }
 
+function displayForecast() {
+    let forecastElement = document.querySelector("#forecast")
+    let forecastHTML = "" ;
+    let days = ["Sat" , "Sun" , "Mon"]
+    days.forEach(function(day){
+        forecastHTML = forecastHTML + 
+        `
+        <div class="col nextFiveDays">
+        <div>${day}</div>
+        <div>
+        <img src="./images/03.jpg" alt="condition" class="nextDaysImg">
+        </div>
+        <div>17°C</div>
+      </div>`
+      
+    })
+    
+    forecastElement.innerHTML = forecastHTML
+}
 function displayTemperature(response){
     let cityElement = document.querySelector("#selectedCity")
     let temperatureElement = document.querySelector("#currentTemp")
     let dateElement = document.querySelector("#date")
     let timeElement = document.querySelector("#time")
     let icon = document.querySelector("#conditionImg")
+    displayForecast()
     cityElement.innerHTML= response.data.name
     temperatureElement.innerHTML=`${Math.round(response.data.main.temp)}°C`
     dateElement.innerHTML = formatDate(response.data.dt * 1000)
     timeElement.innerHTML = formatTime(response.data.dt * 1000)
     let iconCode =response.data.weather[0].icon 
-    console.log(response.data.weather[0].icon)
 
     switch (iconCode) {
         case "01d":
