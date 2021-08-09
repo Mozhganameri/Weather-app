@@ -20,7 +20,8 @@ function formatTime(timestamp){
     return `${hours} : ${minutes}`
 }
 
-function displayForecast() {
+function displayForecast(response) {
+    console.log(response)
     let forecastElement = document.querySelector("#forecast")
     let forecastHTML = "" ;
     let days = ["Sat" , "Sun" , "Mon"]
@@ -39,59 +40,66 @@ function displayForecast() {
     
     forecastElement.innerHTML = forecastHTML
 }
+
+function getForecast(coordinates) {
+    console.log(coordinates)
+    let apiKey = "ff992df60e8c388664e8c387bf3c174c"
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`
+    axios.get(apiUrl).then(displayForecast)
+}
+
 function displayTemperature(response){
     let cityElement = document.querySelector("#selectedCity")
     let temperatureElement = document.querySelector("#currentTemp")
     let dateElement = document.querySelector("#date")
     let timeElement = document.querySelector("#time")
     let icon = document.querySelector("#conditionImg")
-    displayForecast()
     cityElement.innerHTML= response.data.name
     temperatureElement.innerHTML=`${Math.round(response.data.main.temp)}°C`
     dateElement.innerHTML = formatDate(response.data.dt * 1000)
     timeElement.innerHTML = formatTime(response.data.dt * 1000)
     let iconCode =response.data.weather[0].icon 
-
+    
     switch (iconCode) {
         case "01d":
-        case "01n":
-        icon.setAttribute("src" ,"./images/01.jpg")
-            break;
-        case "02d":
-        case "02n":
+            case "01n":
+                icon.setAttribute("src" ,"./images/01.jpg")
+                break;
+                case "02d":
+                    case "02n":
         icon.setAttribute("src" ,"./images/02.jpg")
-            break;
+        break;
         case "03d":
-        case "03n":
-        case "04n":
-        case "04d":
-        icon.setAttribute("src" ,"./images/03.jpg")
-            break;
-        case "09d":
-        case "09n":
-        icon.setAttribute("src" ,"./images/05.jpg")
-            break;
+            case "03n":
+                case "04n":
+                    case "04d":
+                        icon.setAttribute("src" ,"./images/03.jpg")
+                        break;
+                        case "09d":
+                            case "09n":
+                                icon.setAttribute("src" ,"./images/05.jpg")
+                                break;
         case "10d":
-        case "10n":
-        icon.setAttribute("src" ,"./images/05.jpg")
-            break;
-        case "11d":
-        case "11n":
-        icon.setAttribute("src" ,"./images/06.jpg")
+            case "10n":
+                icon.setAttribute("src" ,"./images/05.jpg")
+                break;
+                case "11d":
+                    case "11n":
+                        icon.setAttribute("src" ,"./images/06.jpg")
             break;      
-        case "13d":
-        case "13n":
-        icon.setAttribute("src" ,"./images/06.jpg")
-            break;                                 
-        default:
-        icon.setAttribute("src" ,"./images/01.jpg")
-            break;
-    }
-    
-    
-}
+            case "13d":
+                case "13n":
+                    icon.setAttribute("src" ,"./images/06.jpg")
+                    break;                                 
+                    default:
+                        icon.setAttribute("src" ,"./images/01.jpg")
+                        break;
+                    }
+                    
+    getForecast(response.data.coord)
+                }
 
-function search(city) {
+                function search(city) {
     let apiKey = "ff992df60e8c388664e8c387bf3c174c"
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
     axios.get(apiUrl).then(displayTemperature)
