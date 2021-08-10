@@ -83,7 +83,6 @@ function displayForecast(response) {
 }
 
 function chooseIcon(icon) {
-    console.log(icon);
   switch (icon) {
     case "01d":
     case "01n":
@@ -121,8 +120,6 @@ function chooseIcon(icon) {
   }
 }
 function getForecast(coordinates) {
-  console.log("here2");
-  console.log(coordinates);
   let apiKey = "ff992df60e8c388664e8c387bf3c174c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
@@ -130,7 +127,6 @@ function getForecast(coordinates) {
 
 
 function displayTemperature(response) {
-  console.log(response);
   let cityElement = document.querySelector("#selectedCity");
   let temperatureElement = document.querySelector("#currentTemp");
   let dateElement = document.querySelector("#date");
