@@ -39,8 +39,9 @@ body{
     width: 250px;
 }
 
-#currentTime{
-    font-size: 40px;
+#currentTemp{
+    font-size: 60px;
+    font-weight: 700;
 }
 
 .currentTime{
